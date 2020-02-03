@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Header from './Header'
-import '../styles/style.css'
+import '../styles/Style.css'
 export default function Layout(props) {
     return(
         <div>

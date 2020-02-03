@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "name": "Chunky Soap",
+  "alias": "Chunky Soap",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@now/next"
+    }
+  ]
+}
