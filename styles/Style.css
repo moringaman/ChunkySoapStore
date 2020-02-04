@@ -12,9 +12,21 @@
   text-align: center;
 }
 
-
+.product-buttons {
+  display: flex;
+  width: 60%;
+  margin: 0 auto;
+}
 .btn {
   display: block !important;
   max-width: 200px !important;
   margin: 10px auto;
+}
+
+.soap-cart__wrapper {
+  color: white;
+}
+
+.soap-cart_icon__container {
+  color: white;
 }

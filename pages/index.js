@@ -28,7 +28,7 @@ const PRODUCTS_QUERY = gql`query{
   }
 }`
 const Index = (props) => {
-  console.warn(props)
+  // console.warn(props)
   const { products } = props
   console.log(products.length)
   return (

@@ -140,22 +140,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _TopNav__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TopNav */ "./components/TopNav.js");
+/* harmony import */ var _context_AppContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./context/AppContext */ "./components/context/AppContext.js");
 var _jsxFileName = "/home/webnostix/Codebase/REACT/woo-next/components/Header.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
+
+
 const Header = () => {
+  const {
+    0: cart,
+    1: setCart
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_context_AppContext__WEBPACK_IMPORTED_MODULE_2__["AppContext"]);
+  console.log('Cart: ', cart);
   return __jsx("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 4
+      lineNumber: 9
     },
     __self: undefined
   }, __jsx(_TopNav__WEBPACK_IMPORTED_MODULE_1__["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 5
+      lineNumber: 10
     },
     __self: undefined
   }));
@@ -182,16 +190,62 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Header */ "./components/Header.js");
 /* harmony import */ var _styles_Style_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../styles/Style.css */ "./styles/Style.css");
 /* harmony import */ var _styles_Style_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_styles_Style_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _context_AppContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./context/AppContext */ "./components/context/AppContext.js");
+var _jsxFileName = "/home/webnostix/Codebase/REACT/woo-next/components/Layout.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
+
 function Layout(props) {
-  return __jsx("div", null, __jsx(next_head__WEBPACK_IMPORTED_MODULE_1___default.a, null, __jsx("title", null, "WooCommerce React Theme"), __jsx("link", {
+  return __jsx(_context_AppContext__WEBPACK_IMPORTED_MODULE_4__["AppProvider"], {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 8
+    },
+    __self: this
+  }, __jsx("div", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 9
+    },
+    __self: this
+  }, __jsx(next_head__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 10
+    },
+    __self: this
+  }, __jsx("title", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 11
+    },
+    __self: this
+  }, "WooCommerce React Theme"), __jsx("link", {
     rel: "stylesheet",
-    href: "https://bootswatch.com/4/flatly/bootstrap.css"
-  })), __jsx(_Header__WEBPACK_IMPORTED_MODULE_2__["default"], null), props.children);
+    href: "https://bootswatch.com/4/flatly/bootstrap.css",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 12
+    },
+    __self: this
+  }), __jsx("link", {
+    rel: "stylesheet",
+    href: "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 13
+    },
+    __self: this
+  })), __jsx(_Header__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 15
+    },
+    __self: this
+  }), props.children));
 }
 
 /***/ }),
@@ -207,8 +261,14 @@ function Layout(props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _cart_AddToCartButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cart/AddToCartButton */ "./components/cart/AddToCartButton.js");
+var _jsxFileName = "/home/webnostix/Codebase/REACT/woo-next/components/Product.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
 
 const Product = props => {
   const {
@@ -216,27 +276,84 @@ const Product = props => {
   } = props;
   console.log('Product', product);
   return __jsx("div", {
-    className: "card mb-3"
+    className: "card mb-3",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 8
+    },
+    __self: undefined
   }, __jsx("h3", {
-    className: "card-header"
-  }, product.name), __jsx("img", {
+    className: "card-header",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 9
+    },
+    __self: undefined
+  }, product.name), __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    as: `/product/${product.slug}-${product.productId}`,
+    href: `/product?slug=${product.slug}-${product.productId}`,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 10
+    },
+    __self: undefined
+  }, __jsx("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 14
+    },
+    __self: undefined
+  }, __jsx("img", {
     style: {
       height: '300px',
       width: '100%',
       display: 'block',
       margin: 'auto auto'
     },
-    src: product.image ? product.image.sourceUrl : '' // src={product.images.length ? product.images[0].src : ''}
-    ,
-    alt: "Card image"
-  }), __jsx("div", {
-    className: "card-body"
+    src: product.image ? product.image.sourceUrl : '',
+    alt: "Card image",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 15
+    },
+    __self: undefined
+  }))), __jsx("div", {
+    className: "card-body",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 22
+    },
+    __self: undefined
   }, __jsx("h6", {
-    className: "card-subtitle text-muted"
-  }, product.price)), __jsx("a", {
+    className: "card-subtitle text-muted",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 23
+    },
+    __self: undefined
+  }, product.price)), __jsx("div", {
+    className: "product-buttons",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 25
+    },
+    __self: undefined
+  }, __jsx(_cart_AddToCartButton__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    product: product,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 26
+    },
+    __self: undefined
+  }), __jsx("a", {
     href: "",
-    className: "btn btn-secondary text-center"
-  }, "View"));
+    className: "btn btn-primary text-center",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 27
+    },
+    __self: undefined
+  }, "View Cart")));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Product);
@@ -256,9 +373,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _cart_CartIcon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cart/CartIcon */ "./components/cart/CartIcon.js");
 var _jsxFileName = "/home/webnostix/Codebase/REACT/woo-next/components/TopNav.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
 
 
 const TopNav = () => {
@@ -365,10 +484,265 @@ const TopNav = () => {
       lineNumber: 21
     },
     __self: undefined
-  }, "About")))));
+  }, "About"))), __jsx(_cart_CartIcon__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 24
+    },
+    __self: undefined
+  }, "Cart")));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (TopNav);
+
+/***/ }),
+
+/***/ "./components/cart/AddToCartButton.js":
+/*!********************************************!*\
+  !*** ./components/cart/AddToCartButton.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../functions */ "./functions.js");
+/* harmony import */ var _context_AppContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../context/AppContext */ "./components/context/AppContext.js");
+var _jsxFileName = "/home/webnostix/Codebase/REACT/woo-next/components/cart/AddToCartButton.js";
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
+
+
+
+const AddToCartButton = props => {
+  const {
+    product
+  } = props;
+  const {
+    0: cart,
+    1: setCart
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_context_AppContext__WEBPACK_IMPORTED_MODULE_3__["AppContext"]);
+
+  const handleAddToCartClick = () => {
+    if (false) {}
+  };
+
+  return __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 26
+    },
+    __self: undefined
+  }, __jsx("button", {
+    onClick: handleAddToCartClick,
+    className: "btn btn-success",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 27
+    },
+    __self: undefined
+  }, "Add to Cart"));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (AddToCartButton);
+
+/***/ }),
+
+/***/ "./components/cart/CartIcon.js":
+/*!*************************************!*\
+  !*** ./components/cart/CartIcon.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _context_AppContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../context/AppContext */ "./components/context/AppContext.js");
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_2__);
+var _jsxFileName = "/home/webnostix/Codebase/REACT/woo-next/components/cart/CartIcon.js";
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
+
+
+const CartIcon = () => {
+  const {
+    0: cart,
+    1: setCart
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_context_AppContext__WEBPACK_IMPORTED_MODULE_1__["AppContext"]);
+  const productsCount = null !== cart && Object.keys(cart).length ? cart.totalProductsNumber : '';
+  const totalPrice = null !== cart && Object.keys(cart).length ? cart.totalProductsPrice : '';
+  return __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 10
+    },
+    __self: undefined
+  }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/cart",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 11
+    },
+    __self: undefined
+  }, __jsx("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 12
+    },
+    __self: undefined
+  }, __jsx("div", {
+    className: "soap-cart__wrapper",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 13
+    },
+    __self: undefined
+  }, totalPrice ? __jsx("span", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 14
+    },
+    __self: undefined
+  }, totalPrice.toFixed(2)) : '', __jsx("span", {
+    className: "soap-cart_icon__container",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 15
+    },
+    __self: undefined
+  }, __jsx("i", {
+    className: "fa fa-shopping-cart soap-cart_icon",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 16
+    },
+    __self: undefined
+  }), productsCount ? __jsx("span", {
+    className: "soap-cart-count",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 17
+    },
+    __self: undefined
+  }, productsCount) : '')))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (CartIcon);
+
+/***/ }),
+
+/***/ "./components/context/AppContext.js":
+/*!******************************************!*\
+  !*** ./components/context/AppContext.js ***!
+  \******************************************/
+/*! exports provided: AppContext, AppProvider */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppContext", function() { return AppContext; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppProvider", function() { return AppProvider; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _jsxFileName = "/home/webnostix/Codebase/REACT/woo-next/components/context/AppContext.js";
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+const AppContext = react__WEBPACK_IMPORTED_MODULE_0___default.a.createContext([{}, () => {}]);
+const AppProvider = props => {
+  const {
+    0: cart,
+    1: setCart
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    if (false) {}
+  }, []);
+  return __jsx(AppContext.Provider, {
+    value: [cart, setCart],
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 20
+    },
+    __self: undefined
+  }, props.children);
+};
+
+/***/ }),
+
+/***/ "./functions.js":
+/*!**********************!*\
+  !*** ./functions.js ***!
+  \**********************/
+/*! exports provided: getFloatValue, addFirstProduct, createNewProduct */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFloatValue", function() { return getFloatValue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addFirstProduct", function() { return addFirstProduct; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNewProduct", function() { return createNewProduct; });
+const getFloatValue = string => {
+  let floatVal = string.match(/[+-]?\d+(\.\d+)?/g)[0];
+  console.warn(floatVal);
+  return null !== floatVal ? parseFloat(parseFloat(floatVal).toFixed(2)) : '';
+};
+/**
+ * @param  {} product
+ * @param  {} =>{letproductPrice=getFloatValue(product.price
+ * @param  {[]} letnewCart={products
+ * @param  {1} totalProductsNumber
+ * @param  {productPrice}constnewProduct=createNewProduct(product} totalProductsPrice
+ * @param  {} productPrice
+ * @param  {} 1
+ * @param  {} newCart.products.push(newProduct
+ * @param  {} localStorage.setItem('soap-cart'
+ * @param  {} JSON.stringify(newCart
+ */
+
+const addFirstProduct = product => {
+  let productPrice = getFloatValue(product.price);
+  let newCart = {
+    products: [],
+    totalProductsNumber: 1,
+    totalProductsPrice: productPrice
+  };
+  const newProduct = createNewProduct(product, productPrice, 1);
+  newCart.products.push(newProduct);
+  localStorage.setItem('soap-cart', JSON.stringify(newCart));
+  return newCart;
+};
+/**
+ * @param  {} product
+ * @param  {} productPrice
+ * @param  {} qty
+ * @param  {product.productId} =>{return{productID
+ * @param  {product.image.sourceUrl} image
+ * @param  {product.name} name
+ * @param  {productPrice} price
+ * @param  {qty} qty
+ * @param  {parseFloat((productPrice*qty} totalPrice
+ */
+
+const createNewProduct = (product, productPrice, qty) => {
+  return {
+    productID: product.productId,
+    image: product.image,
+    name: product.name,
+    price: productPrice,
+    qty: qty,
+    totalPrice: parseFloat((productPrice * qty).toFixed(2))
+  };
+};
 
 /***/ }),
 
@@ -2093,7 +2467,7 @@ const PRODUCTS_QUERY = graphql_tag__WEBPACK_IMPORTED_MODULE_4___default.a`query{
 }`;
 
 const Index = props => {
-  console.warn(props);
+  // console.warn(props)
   const {
     products
   } = props;
