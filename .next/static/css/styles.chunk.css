@@ -25,10 +25,31 @@
 
 .soap-cart__wrapper {
   color: white;
+  font-weight: 600;
+}
+
+span .soap-cart-count {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  font-weight: 600;
+  background-color: orangered;
+  border-radius: 50%;
+  right: 17px;
+  top: 52px;
+  transform: translateY(-40px) !important;
 }
 
 .soap-cart_icon__container {
   color: white;
+  margin-left: 10px;
+}
+
+.soap-cart_icon {
+  color: greenyellow;
+  width: 2rem;
+  font-size: 1.5rem;
 }
 
 /*# sourceMappingURL=styles.chunk.css.map*/

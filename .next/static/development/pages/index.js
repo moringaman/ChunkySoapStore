@@ -247,15 +247,7 @@ var Product = function Product(props) {
       lineNumber: 26
     },
     __self: this
-  }), __jsx("a", {
-    href: "",
-    className: "btn btn-primary text-center",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 27
-    },
-    __self: this
-  }, "View Cart")));
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Product);
@@ -386,13 +378,13 @@ var TopNav = function TopNav() {
       lineNumber: 21
     },
     __self: this
-  }, "About"))), __jsx(_cart_CartIcon__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, "About")))), __jsx(_cart_CartIcon__WEBPACK_IMPORTED_MODULE_2__["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 24
+      lineNumber: 25
     },
     __self: this
-  }, "Cart")));
+  }, "Cart"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (TopNav);
@@ -429,23 +421,34 @@ var AddToCartButton = function AddToCartButton(props) {
       cart = _useContext[0],
       setCart = _useContext[1];
 
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      showViewCart = _useState[0],
+      setShowViewCart = _useState[1];
+
   var handleAddToCartClick = function handleAddToCartClick() {
     if (true) {
       var existingCart = localStorage.getItem('soap-cart');
 
-      if (existingCart) {// If existing add new product to cart
+      if (existingCart) {
+        // If existing add new product to cart
+        existingCart = JSON.parse(existingCart);
+        var qty = 1;
+        var updatedCart = Object(_functions__WEBPACK_IMPORTED_MODULE_2__["updateCart"])(existingCart, product, qty);
+        setCart(updatedCart);
       } else {
         // If no cart Data, create empty array and push product to it
         var newCart = Object(_functions__WEBPACK_IMPORTED_MODULE_2__["addFirstProduct"])(product);
         setCart(newCart);
       }
+
+      setShowViewCart(true);
     }
   };
 
   return __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 26
+      lineNumber: 34
     },
     __self: this
   }, __jsx("button", {
@@ -453,10 +456,24 @@ var AddToCartButton = function AddToCartButton(props) {
     className: "btn btn-success",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 27
+      lineNumber: 35
     },
     __self: this
-  }, "Add to Cart"));
+  }, "Add to Cart"), showViewCart ? __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    href: "/cart",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 37
+    },
+    __self: this
+  }, __jsx("button", {
+    className: "btn btn-primary",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 38
+    },
+    __self: this
+  }, "View Cart")) : '');
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (AddToCartButton);
@@ -526,7 +543,7 @@ var CartIcon = function CartIcon() {
       lineNumber: 14
     },
     __self: this
-  }, totalPrice.toFixed(2)) : '', __jsx("span", {
+  }, "\xA3", totalPrice.toFixed(2)) : '', __jsx("span", {
     className: "soap-cart_icon__container",
     __source: {
       fileName: _jsxFileName,
@@ -599,7 +616,7 @@ var AppProvider = function AppProvider(props) {
 /*!**********************!*\
   !*** ./functions.js ***!
   \**********************/
-/*! exports provided: getFloatValue, addFirstProduct, createNewProduct */
+/*! exports provided: getFloatValue, addFirstProduct, createNewProduct, updateCart, getUpdatedProducts, isProductInCart */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -607,16 +624,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFloatValue", function() { return getFloatValue; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addFirstProduct", function() { return addFirstProduct; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNewProduct", function() { return createNewProduct; });
-/* harmony import */ var _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/json/stringify */ "./node_modules/@babel/runtime-corejs2/core-js/json/stringify.js");
-/* harmony import */ var _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_corejs2_core_js_parse_float__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/parse-float */ "./node_modules/@babel/runtime-corejs2/core-js/parse-float.js");
-/* harmony import */ var _babel_runtime_corejs2_core_js_parse_float__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_parse_float__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateCart", function() { return updateCart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUpdatedProducts", function() { return getUpdatedProducts; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isProductInCart", function() { return isProductInCart; });
+/* harmony import */ var _babel_runtime_corejs2_core_js_parse_int__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/parse-int */ "./node_modules/@babel/runtime-corejs2/core-js/parse-int.js");
+/* harmony import */ var _babel_runtime_corejs2_core_js_parse_int__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_parse_int__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/json/stringify */ "./node_modules/@babel/runtime-corejs2/core-js/json/stringify.js");
+/* harmony import */ var _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_corejs2_core_js_parse_float__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/parse-float */ "./node_modules/@babel/runtime-corejs2/core-js/parse-float.js");
+/* harmony import */ var _babel_runtime_corejs2_core_js_parse_float__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_parse_float__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
 var getFloatValue = function getFloatValue(string) {
   var floatVal = string.match(/[+-]?\d+(\.\d+)?/g)[0];
   console.warn(floatVal);
-  return null !== floatVal ? _babel_runtime_corejs2_core_js_parse_float__WEBPACK_IMPORTED_MODULE_1___default()(_babel_runtime_corejs2_core_js_parse_float__WEBPACK_IMPORTED_MODULE_1___default()(floatVal).toFixed(2)) : '';
+  return null !== floatVal ? _babel_runtime_corejs2_core_js_parse_float__WEBPACK_IMPORTED_MODULE_2___default()(_babel_runtime_corejs2_core_js_parse_float__WEBPACK_IMPORTED_MODULE_2___default()(floatVal).toFixed(2)) : '';
 };
 /**
  * @param  {} product
@@ -640,10 +663,10 @@ var addFirstProduct = function addFirstProduct(product) {
   };
   var newProduct = createNewProduct(product, productPrice, 1);
   newCart.products.push(newProduct);
-  localStorage.setItem('soap-cart', _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_0___default()(newCart));
+  localStorage.setItem('soap-cart', _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1___default()(newCart));
   return newCart;
 };
-/**
+/** Create a new product object
  * @param  {} product
  * @param  {} productPrice
  * @param  {} qty
@@ -662,8 +685,82 @@ var createNewProduct = function createNewProduct(product, productPrice, qty) {
     name: product.name,
     price: productPrice,
     qty: qty,
-    totalPrice: _babel_runtime_corejs2_core_js_parse_float__WEBPACK_IMPORTED_MODULE_1___default()((productPrice * qty).toFixed(2))
+    totalPrice: _babel_runtime_corejs2_core_js_parse_float__WEBPACK_IMPORTED_MODULE_2___default()((productPrice * qty).toFixed(2))
   };
+};
+var updateCart = function updateCart(existingCart, product, qty) {
+  var newQuantity = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+  var updatedProducts = getUpdatedProducts(existingCart.products, product, qty, newQuantity);
+
+  var addTotal = function addTotal(total, item) {
+    total.totalPrice += item.totalPrice;
+    total.qty += item.qty;
+    return total;
+  };
+
+  var total = updatedProducts.reduce(addTotal, {
+    totalPrice: 0,
+    qty: 0
+  });
+  var updatedCart = {
+    products: updatedProducts,
+    totalProductsNumber: _babel_runtime_corejs2_core_js_parse_int__WEBPACK_IMPORTED_MODULE_0___default()(total.qty),
+    totalProductsPrice: _babel_runtime_corejs2_core_js_parse_int__WEBPACK_IMPORTED_MODULE_0___default()(total.totalPrice)
+  };
+  localStorage.setItem('soap-cart', _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1___default()(updatedCart));
+  return updatedCart;
+};
+/** Get updated cart array
+ * Update product if it exists
+ * add the new product to existing cart
+ * @param  {} existingCartProducts
+ * @param  {} newProduct
+ * @param  {} qty
+ * @param  {} newQuantity=false
+ * @param  {} =>{constproductExistsIndex=isProductInCart(existingCartProducts
+ * @param  {} newProduct.productID
+ * @param  {} if(productExistsIndex>-1
+ * @param  {} {letupdatedProducts=existingCartProductsletupdatedProduct=updatedProducts[productExistsIndex];updatedProduct.qty=(newQuantity?parseInt(newQuantity
+ */
+
+var getUpdatedProducts = function getUpdatedProducts(existingCartProducts, product, qty) {
+  var newQuantity = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+  // Check if product is already in cart
+  var productExistsIndex = isProductInCart(existingCartProducts, product.productID); // if in cart update quantity by qty and recalculate total price
+
+  if (productExistsIndex > -1) {
+    var updatedProducts = existingCartProducts;
+    var updatedProduct = updatedProducts[productExistsIndex];
+    updatedProduct.qty = newQuantity ? _babel_runtime_corejs2_core_js_parse_int__WEBPACK_IMPORTED_MODULE_0___default()(newQuantity) : _babel_runtime_corejs2_core_js_parse_int__WEBPACK_IMPORTED_MODULE_0___default()(updatedProduct.qty + qty);
+    updatedProduct.totalPrice = _babel_runtime_corejs2_core_js_parse_float__WEBPACK_IMPORTED_MODULE_2___default()(updatedProduct.price * updatedProduct.qty).toFixed(2);
+    return updatedProduct;
+  } else {
+    // if not create new product and push onto array of products
+    var productPrice = getFloatValue(product.price);
+    var newProduct = createNewProduct(product, productPrice, qty);
+    existingCartProducts.push(newProduct);
+    return existingCartProducts;
+  }
+};
+/** Return index of product is it exists in the cart
+ * @param  {} existingCartProducts
+ * @param  {} newProductId
+ * @param  {} =>{returnItemThatExists=(item
+ * @param  {} index
+ * @param  {} =>{if(item.productID===newProductId
+ * @param  {} {returnitem}}constnewArray=existingCartProducts.filter(returnItemThatExists
+ * @param  {} returnexistingCartProducts.indexOf(newArray[0]
+ */
+
+var isProductInCart = function isProductInCart(existingCartProducts, newProductId) {
+  var returnItemThatExists = function returnItemThatExists(item, index) {
+    if (item.productID === newProductId) {
+      return item;
+    }
+  };
+
+  var newArray = existingCartProducts.filter(returnItemThatExists);
+  return existingCartProducts.indexOf(newArray[0]);
 };
 
 /***/ }),
@@ -830,6 +927,17 @@ module.exports = __webpack_require__(/*! core-js/library/fn/object/set-prototype
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(/*! core-js/library/fn/parse-float */ "./node_modules/core-js/library/fn/parse-float.js");
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime-corejs2/core-js/parse-int.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime-corejs2/core-js/parse-int.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! core-js/library/fn/parse-int */ "./node_modules/core-js/library/fn/parse-int.js");
 
 /***/ }),
 
@@ -7196,6 +7304,19 @@ module.exports = __webpack_require__(/*! ../modules/_core */ "./node_modules/cor
 
 /***/ }),
 
+/***/ "./node_modules/core-js/library/fn/parse-int.js":
+/*!******************************************************!*\
+  !*** ./node_modules/core-js/library/fn/parse-int.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! ../modules/es6.parse-int */ "./node_modules/core-js/library/modules/es6.parse-int.js");
+module.exports = __webpack_require__(/*! ../modules/_core */ "./node_modules/core-js/library/modules/_core.js").parseInt;
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/library/fn/promise.js":
 /*!****************************************************!*\
   !*** ./node_modules/core-js/library/fn/promise.js ***!
@@ -9122,6 +9243,26 @@ module.exports = 1 / $parseFloat(__webpack_require__(/*! ./_string-ws */ "./node
 
 /***/ }),
 
+/***/ "./node_modules/core-js/library/modules/_parse-int.js":
+/*!************************************************************!*\
+  !*** ./node_modules/core-js/library/modules/_parse-int.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $parseInt = __webpack_require__(/*! ./_global */ "./node_modules/core-js/library/modules/_global.js").parseInt;
+var $trim = __webpack_require__(/*! ./_string-trim */ "./node_modules/core-js/library/modules/_string-trim.js").trim;
+var ws = __webpack_require__(/*! ./_string-ws */ "./node_modules/core-js/library/modules/_string-ws.js");
+var hex = /^[-+]?0[xX]/;
+
+module.exports = $parseInt(ws + '08') !== 8 || $parseInt(ws + '0x16') !== 22 ? function parseInt(str, radix) {
+  var string = $trim(String(str), 3);
+  return $parseInt(string, (radix >>> 0) || (hex.test(string) ? 16 : 10));
+} : $parseInt;
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/library/modules/_perform.js":
 /*!**********************************************************!*\
   !*** ./node_modules/core-js/library/modules/_perform.js ***!
@@ -10158,6 +10299,21 @@ var $export = __webpack_require__(/*! ./_export */ "./node_modules/core-js/libra
 var $parseFloat = __webpack_require__(/*! ./_parse-float */ "./node_modules/core-js/library/modules/_parse-float.js");
 // 18.2.4 parseFloat(string)
 $export($export.G + $export.F * (parseFloat != $parseFloat), { parseFloat: $parseFloat });
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/library/modules/es6.parse-int.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/core-js/library/modules/es6.parse-int.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $export = __webpack_require__(/*! ./_export */ "./node_modules/core-js/library/modules/_export.js");
+var $parseInt = __webpack_require__(/*! ./_parse-int */ "./node_modules/core-js/library/modules/_parse-int.js");
+// 18.2.5 parseInt(string, radix)
+$export($export.G + $export.F * (parseInt != $parseInt), { parseInt: $parseInt });
 
 
 /***/ }),
@@ -22754,7 +22910,7 @@ module.exports = clientConfig;
 
 /***/ }),
 
-/***/ 2:
+/***/ 1:
 /*!*************************************************************************************************************************************!*\
   !*** multi next-client-pages-loader?page=%2F&absolutePagePath=%2Fhome%2Fwebnostix%2FCodebase%2FREACT%2Fwoo-next%2Fpages%2Findex.js ***!
   \*************************************************************************************************************************************/
@@ -22777,5 +22933,5 @@ module.exports = dll_ef0ff7c60362f24a921f;
 
 /***/ })
 
-},[[2,"static/runtime/webpack.js","styles"]]]);
+},[[1,"static/runtime/webpack.js","styles"]]]);
 //# sourceMappingURL=index.js.map

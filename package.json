@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "now dev",
+    "dev": "now dev --inspect",
     "build": "next build",
     "start": "next start"
   },

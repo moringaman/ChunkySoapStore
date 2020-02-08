@@ -21,8 +21,8 @@ const TopNav = () => {
                         <a className="nav-link" href="#">About</a>
                     </li>
                 </ul>
-                <CartIcon>Cart</CartIcon>
             </div>
+                <CartIcon>Cart</CartIcon>
         </nav>
     )
 }

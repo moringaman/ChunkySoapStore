@@ -24,7 +24,7 @@ const Product = (props) => {
         </div>
         <div className="product-buttons">
           <AddToCartButton product={product}/>
-          <a href="" className="btn btn-primary text-center">View Cart</a> 
+          {/* <a href="" className="btn btn-primary text-center">View Cart</a>  */}
         </div>
       </div>
   )

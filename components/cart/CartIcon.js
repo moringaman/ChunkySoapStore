@@ -11,7 +11,7 @@ const CartIcon = () => {
       <Link href="/cart">
         <a>
           <div className="soap-cart__wrapper">
-            {totalPrice? <span>{totalPrice.toFixed(2)}</span>: ''}
+            {totalPrice? <span>&pound;{totalPrice.toFixed(2)}</span>: ''}
             <span className="soap-cart_icon__container">
               <i className="fa fa-shopping-cart soap-cart_icon"/>
               {productsCount? <span className="soap-cart-count">{productsCount}</span> : ''}

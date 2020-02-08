@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -345,15 +345,7 @@ const Product = props => {
       lineNumber: 26
     },
     __self: undefined
-  }), __jsx("a", {
-    href: "",
-    className: "btn btn-primary text-center",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 27
-    },
-    __self: undefined
-  }, "View Cart")));
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Product);
@@ -484,13 +476,13 @@ const TopNav = () => {
       lineNumber: 21
     },
     __self: undefined
-  }, "About"))), __jsx(_cart_CartIcon__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, "About")))), __jsx(_cart_CartIcon__WEBPACK_IMPORTED_MODULE_2__["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 24
+      lineNumber: 25
     },
     __self: undefined
-  }, "Cart")));
+  }, "Cart"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (TopNav);
@@ -528,6 +520,10 @@ const AddToCartButton = props => {
     0: cart,
     1: setCart
   } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_context_AppContext__WEBPACK_IMPORTED_MODULE_3__["AppContext"]);
+  const {
+    0: showViewCart,
+    1: setShowViewCart
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
 
   const handleAddToCartClick = () => {
     if (false) {}
@@ -536,7 +532,7 @@ const AddToCartButton = props => {
   return __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 26
+      lineNumber: 34
     },
     __self: undefined
   }, __jsx("button", {
@@ -544,10 +540,24 @@ const AddToCartButton = props => {
     className: "btn btn-success",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 27
+      lineNumber: 35
     },
     __self: undefined
-  }, "Add to Cart"));
+  }, "Add to Cart"), showViewCart ? __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    href: "/cart",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 37
+    },
+    __self: undefined
+  }, __jsx("button", {
+    className: "btn btn-primary",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 38
+    },
+    __self: undefined
+  }, "View Cart")) : '');
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (AddToCartButton);
@@ -614,7 +624,7 @@ const CartIcon = () => {
       lineNumber: 14
     },
     __self: undefined
-  }, totalPrice.toFixed(2)) : '', __jsx("span", {
+  }, "\xA3", totalPrice.toFixed(2)) : '', __jsx("span", {
     className: "soap-cart_icon__container",
     __source: {
       fileName: _jsxFileName,
@@ -683,7 +693,7 @@ const AppProvider = props => {
 /*!**********************!*\
   !*** ./functions.js ***!
   \**********************/
-/*! exports provided: getFloatValue, addFirstProduct, createNewProduct */
+/*! exports provided: getFloatValue, addFirstProduct, createNewProduct, updateCart, getUpdatedProducts, isProductInCart */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -691,6 +701,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFloatValue", function() { return getFloatValue; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addFirstProduct", function() { return addFirstProduct; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNewProduct", function() { return createNewProduct; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateCart", function() { return updateCart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUpdatedProducts", function() { return getUpdatedProducts; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isProductInCart", function() { return isProductInCart; });
 const getFloatValue = string => {
   let floatVal = string.match(/[+-]?\d+(\.\d+)?/g)[0];
   console.warn(floatVal);
@@ -721,7 +734,7 @@ const addFirstProduct = product => {
   localStorage.setItem('soap-cart', JSON.stringify(newCart));
   return newCart;
 };
-/**
+/** Create a new product object
  * @param  {} product
  * @param  {} productPrice
  * @param  {} qty
@@ -742,6 +755,78 @@ const createNewProduct = (product, productPrice, qty) => {
     qty: qty,
     totalPrice: parseFloat((productPrice * qty).toFixed(2))
   };
+};
+const updateCart = (existingCart, product, qty, newQuantity = false) => {
+  const updatedProducts = getUpdatedProducts(existingCart.products, product, qty, newQuantity);
+
+  const addTotal = (total, item) => {
+    total.totalPrice += item.totalPrice;
+    total.qty += item.qty;
+    return total;
+  };
+
+  let total = updatedProducts.reduce(addTotal, {
+    totalPrice: 0,
+    qty: 0
+  });
+  const updatedCart = {
+    products: updatedProducts,
+    totalProductsNumber: parseInt(total.qty),
+    totalProductsPrice: parseInt(total.totalPrice)
+  };
+  localStorage.setItem('soap-cart', JSON.stringify(updatedCart));
+  return updatedCart;
+};
+/** Get updated cart array
+ * Update product if it exists
+ * add the new product to existing cart
+ * @param  {} existingCartProducts
+ * @param  {} newProduct
+ * @param  {} qty
+ * @param  {} newQuantity=false
+ * @param  {} =>{constproductExistsIndex=isProductInCart(existingCartProducts
+ * @param  {} newProduct.productID
+ * @param  {} if(productExistsIndex>-1
+ * @param  {} {letupdatedProducts=existingCartProductsletupdatedProduct=updatedProducts[productExistsIndex];updatedProduct.qty=(newQuantity?parseInt(newQuantity
+ */
+
+const getUpdatedProducts = (existingCartProducts, product, qty, newQuantity = false) => {
+  // Check if product is already in cart
+  const productExistsIndex = isProductInCart(existingCartProducts, product.productID); // if in cart update quantity by qty and recalculate total price
+
+  if (productExistsIndex > -1) {
+    let updatedProducts = existingCartProducts;
+    let updatedProduct = updatedProducts[productExistsIndex];
+    updatedProduct.qty = newQuantity ? parseInt(newQuantity) : parseInt(updatedProduct.qty + qty);
+    updatedProduct.totalPrice = parseFloat(updatedProduct.price * updatedProduct.qty).toFixed(2);
+    return updatedProduct;
+  } else {
+    // if not create new product and push onto array of products
+    let productPrice = getFloatValue(product.price);
+    let newProduct = createNewProduct(product, productPrice, qty);
+    existingCartProducts.push(newProduct);
+    return existingCartProducts;
+  }
+};
+/** Return index of product is it exists in the cart
+ * @param  {} existingCartProducts
+ * @param  {} newProductId
+ * @param  {} =>{returnItemThatExists=(item
+ * @param  {} index
+ * @param  {} =>{if(item.productID===newProductId
+ * @param  {} {returnitem}}constnewArray=existingCartProducts.filter(returnItemThatExists
+ * @param  {} returnexistingCartProducts.indexOf(newArray[0]
+ */
+
+const isProductInCart = (existingCartProducts, newProductId) => {
+  const returnItemThatExists = (item, index) => {
+    if (item.productID === newProductId) {
+      return item;
+    }
+  };
+
+  const newArray = existingCartProducts.filter(returnItemThatExists);
+  return existingCartProducts.indexOf(newArray[0]);
 };
 
 /***/ }),
@@ -2543,7 +2628,7 @@ module.exports = clientConfig;
 
 /***/ }),
 
-/***/ 4:
+/***/ 3:
 /*!******************************!*\
   !*** multi ./pages/index.js ***!
   \******************************/
